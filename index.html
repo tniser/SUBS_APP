@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>dxFeed Subscription Requests</title>
+    <!-- Include Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>dxFeed Subscription Requests</h1>
+
+      <div class="form-section">
+        <div class="input-group">
+          <label for="auth-key">Bearer Auth Key:</label>
+          <input
+            type="password"
+            id="auth-key"
+            placeholder="Enter bearer auth key..."
+          />
+        </div>
+
+        <button id="import-accounts">Import Accounts</button>
+        <button id="get-subscriptions">Get Account Subscriptions</button>
+        <button id="cancel-subscription">Cancel Subscription</button>
+      </div>
+
+      <!-- Output window -->
+      <div class="flex-grow">
+        <div class="output-group">
+          <textarea
+            id="output"
+            readonly
+            placeholder="Errors will appear here..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Codes Modal -->
+    <div id="account-codes-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-account-codes-modal">&times;</span>
+        <h2>Enter Account Codes</h2>
+        <textarea
+          id="account-codes-input"
+          placeholder="Enter account codes, one per line..."
+        ></textarea>
+        <button id="generate-sql">Next Step</button>
+      </div>
+    </div>
+
+    <!-- SQL Output Modal -->
+    <div id="sql-output-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-sql-output-modal">&times;</span>
+        <h2>Generated SQL Query</h2>
+        <div class="textarea-with-button">
+          <textarea id="generated-sql-output" readonly></textarea>
+          <button id="copy-sql" title="Copy to clipboard">Copy</button>
+        </div>
+        <p>
+          Please execute the above SQL query in your database to get the list of
+          emails.
+        </p>
+        <h2>Enter SQL Output (Emails)</h2>
+        <textarea
+          id="sql-output-input"
+          placeholder="Enter emails, one per line..."
+        ></textarea>
+        <button id="fetch-dxfeed-ids">Fetch dxFeed IDs</button>
+
+        <!-- Progress bar for fetching dxFeed IDs -->
+        <div
+          class="progress-container"
+          id="dxfeed-progress-container"
+          style="display: none"
+        >
+          <progress id="dxfeed-progress-bar" value="0" max="100"></progress>
+          <span id="dxfeed-progress-label">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="custom-alert-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-custom-alert">&times;</span>
+        <p id="alert-message"></p>
+        <button id="custom-alert-ok">OK</button>
+      </div>
+    </div>
+
+    <!-- Subscription Input Modal -->
+    <div id="subscription-input-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-subscription-input-modal">&times;</span>
+        <h2>Enter Subscription to Cancel</h2>
+        <textarea
+          id="subscription-to-cancel"
+          placeholder="Enter subscription value..."
+          tabindex="1"
+        ></textarea>
+        <button id="confirm-cancel-subscription">Confirm</button>
+      </div>
+    </div>
+
+    <!-- Output Info Modal -->
+    <div id="output-info-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-output-info-modal">&times;</span>
+        <h2>Processing Complete</h2>
+        <p>All output has been saved to the file:</p>
+        <p id="output-file-path" style="word-break: break-all"></p>
+        <button id="close-output-info">Close</button>
+      </div>
+    </div>
+
+    <!-- Progress Modal for Sending Requests -->
+    <div id="progress-modal" class="modal">
+      <div class="modal-content">
+        <h2 id="progress-modal-title">Processing...</h2>
+        <div class="progress-container">
+          <progress id="process-progress-bar" value="0" max="100"></progress>
+          <span id="process-progress-label">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Place script at the end of the body -->
+    <script src="renderer.js"></script>
+  </body>
+</html>
